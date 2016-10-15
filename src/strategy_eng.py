@@ -1,24 +1,14 @@
 import logging
-import strategy
+from strategy import Strategy as Strategy
 import logger
-class StrategyEng:
+class StrategyEng(Strategy):
     def __init__(self,logger):
-       self.logger=logger
+       super(StrategyEng,self).__init__(logger)
        self.pairs=["jf","kd","ls","ca","nt","iv","me","hr","go","bp","qu","wn","cx","yz"]
        self.charStart='a'
        self.charEnd='z'
        self.seperator=' '
-       self.strip="0123456789"
-    def align(self,word):
-        word_ret=word.strip(self.strip).strip(self.seperator)
-        word_ret=word_ret.lower()
-        return word_ret
 
-    def index(self,word):
-        word_len = len(word)
-        if word_len<3 :
-            return None
-        return  word[0:3]
 
 
 
@@ -26,6 +16,6 @@ class StrategyEng:
         self.logger.log(logging.DEBUG, self.pairs)
 
 if __name__=="__main__":
-    logger=logger.Logger()
-    tmp=StrategyEng(logger.Logger())
+    #logger=logger.Logger()
+    tmp=StrategyEng(logger.Loggerf())
     tmp.info()
