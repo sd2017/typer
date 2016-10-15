@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-class Logger:
+class Logger():
     def __init__(self):
         root_logger = logging.getLogger()
         root_logger.setLevel(logging.DEBUG)  # or whatever

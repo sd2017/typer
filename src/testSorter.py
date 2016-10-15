@@ -1,6 +1,7 @@
 import sys
 import nose
 import logging
+import logger
 from nose.tools import assert_equal
 from nose.tools import assert_not_equal
 from nose.tools import assert_raises
@@ -10,7 +11,7 @@ import logger
 import sorter
 class TestSorter():
   def setUp(self):
-      self.sorter = sorter.Sorter("../data/words_80day10.txt", {}, strategy_eng.StrategyEng(logger.Logger()))
+      self.sorter = sorter.Sorter(logger.Logger(),"../data/words_80day10.txt", {}, strategy_eng.StrategyEng(logger.Logger()))
   def tearDown(self):
       del self.sorter
   def test_line(self):
