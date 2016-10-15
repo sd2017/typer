@@ -8,7 +8,7 @@ class StrategyEng:
        self.charStart='a'
        self.charEnd='z'
        self.seperator=' '
-       self.strip=xrange('0','9')
+       self.strip="0123456789"
     def align(self,word):
         word_ret=word.strip(self.strip).strip(self.seperator)
         word_ret=word_ret.lower()
@@ -18,7 +18,7 @@ class StrategyEng:
         word_len = len(word)
         if word_len<3 :
             return None
-        return  word[0:2]
+        return  word[0:3]
 
 
 
