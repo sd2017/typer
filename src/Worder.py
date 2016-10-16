@@ -9,7 +9,7 @@ import copy
 import gc
 import os
 import codecs
-
+import random
 
 class Worder:
     suffixes = {"DST": ".dst", "TXT": ".txt", "LVL": ".txt"}
@@ -67,7 +67,34 @@ class Worder:
             self.fromFileTXT(lines)
             self.toFileDST()
 
+    def iterate_keys(self,level):
+        keys_sub=list()
+        self.level = level
+        setk = self.strategy.levelToSet(self.level)
+        keys = self.dict.keys()
+        self.logger.log(logging.DEBUG, "SHOSHAN check translations of  key,setk, itrerate_words:level=%s", level)
+        self.logger.log(logging.DEBUG, "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+        for key in keys:
+            self.logger.log(logging.DEBUG, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+            self.logger.log(logging.DEBUG, "key:%s", self.strategy.toSet(key))
+            self.logger.log(logging.DEBUG, "level set %s", setk)
+            if self.strategy.toSet(key).issubset(setk):
+                keys_sub.append(key)
+        while (True):
+            key_rand=random.choice(keys_sub)
+            yield key_rand
+
+
     def itrerate_words(self, level):
+        self.level = level #TODO done in iterate keys
+        while (True):
+            key = self.iterate_keys( level).next()
+            word_rand=random.choice(list(self.dict[key]))
+            self.logger.log(logging.DEBUG, "found :%s", word_rand)
+            yield word_rand
+
+
+    def itrerate_wordsNoKeys(self, level):  #TODO delete
         self.level = level
         setk = self.strategy.levelToSet(self.level)
         keys = self.dict.keys()
