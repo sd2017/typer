@@ -1,15 +1,17 @@
 import logging
 import logger
 import itertools
+from StrategyWriter import StrategyWriter
 class Strategy(object):
     def __init__(self,logger):
        self.logger=logger
        self.pairs=[]
        self.charStart=''
        self.charEnd=''
-       self.seperator = ''
-       self.strip='0123456789.,:-?!;\n"'
+       self.seperator = ' '
+       self.strip='0123456789*.,:-?!;\n"'
        self.triplets=[]
+       self.writer = StrategyWriter(self.logger)
     def info(self):
         self.logger.log(logging.DEBUG, self.pairs)
     def align(self, word):
@@ -34,6 +36,9 @@ class Strategy(object):
             setk=setk.union(set(self.pairs[i]))
         return setk
 
+    def toSet(self,item):
+        seta=set(item)
+        return seta
 
 if __name__=="__main__":
   pass

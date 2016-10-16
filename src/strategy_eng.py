@@ -7,7 +7,7 @@ class StrategyEng(Strategy):
        self.pairs=["jf","kd","ls","ca","nt","iv","me","hr","go","bp","qu","wn","cx","yz"]
        self.charStart='a'
        self.charEnd='z'
-       self.seperator=' '
+
 
 
 
