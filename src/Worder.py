@@ -10,7 +10,7 @@ import gc
 import os
 import codecs
 import random
-
+from  array import array
 class Worder:
     suffixes = {"DST": ".dst", "TXT": ".txt", "LVL": ".txt"}
 
@@ -68,18 +68,21 @@ class Worder:
             self.toFileDST()
 
     def iterate_keys(self,level):
-        keys_sub=list()
-        self.level = level
+        keys_sub=dict()
+        level = level
         setk = self.strategy.levelToSet(self.level)
         keys = self.dict.keys()
         self.logger.log(logging.DEBUG, "SHOSHAN check translations of  key,setk, itrerate_words:level=%s", level)
         self.logger.log(logging.DEBUG, "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+        counter=0
         for key in keys:
             self.logger.log(logging.DEBUG, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
             self.logger.log(logging.DEBUG, "key:%s", self.strategy.toSet(key))
             self.logger.log(logging.DEBUG, "level set %s", setk)
             if self.strategy.toSet(key).issubset(setk):
-                keys_sub.append(key)
+                keys_sub[counter]=key
+                counter=counter+1
+                self.logger.log(logging.DEBUG, "keys_sub:%s", keys_sub)
         while (True):
             key_rand=random.choice(keys_sub)
             yield key_rand
@@ -87,8 +90,9 @@ class Worder:
 
     def itrerate_words(self, level):
         self.level = level #TODO done in iterate keys
+        iterate_keysf=self.iterate_keys( level)
         while (True):
-            key = self.iterate_keys( level).next()
+            key = iterate_keysf.next()
             word_rand=random.choice(list(self.dict[key]))
             self.logger.log(logging.DEBUG, "found :%s", word_rand)
             yield word_rand
@@ -115,7 +119,8 @@ class Worder:
         filename = self.filename + '.' + str(level).zfill(2) + Worder.suffixes["LVL"]
         with open(filename, 'wb') as handle:  # TODO
             writer = self.strategy.writer.getwriter(handle)
-            for i,word in zip(range(0,300) ,self.itrerate_words(level)):
+            iterate_wordsf=self.itrerate_words(level)
+            for i,word in zip(range(0,300) ,iterate_wordsf):
                     self.logger.log(logging.DEBUG,"toFileLVL call:%s", word)
                     writer.write(word)
                     writer.write(" \n")

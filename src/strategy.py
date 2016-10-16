@@ -1,6 +1,8 @@
 import logging
 import logger
 import itertools
+import string
+
 from StrategyWriter import StrategyWriter
 class Strategy(object):
     def __init__(self,logger):
@@ -9,13 +11,15 @@ class Strategy(object):
        self.charStart=''
        self.charEnd=''
        self.seperator = ' '
-       self.strip='0123456789*.,:-?!;\n"'
+       #self.strip='0123456789*.,:-?!;()[]\n"' TODO
+       self.strip=string.punctuation+string.digits+"\n"
        self.triplets=[]
        self.writer = StrategyWriter(self.logger)
     def info(self):
         self.logger.log(logging.DEBUG, self.pairs)
     def align(self, word):
-        word_ret = word.strip(self.strip).strip(self.seperator)
+        #word_ret = word.strip(self.strip).strip(self.seperator)
+        word_ret= word.translate(None,self.strip+self.seperator)  #TODO RE
         word_ret = word_ret.lower()
         return word_ret
     def index(self, word):
