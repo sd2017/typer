@@ -121,10 +121,15 @@ if __name__=="__main__":
     #logging.log(logging.DEBUG,logging._levelNames)
     #logger=logger.Logger()
     test=TestWorder()
+    test.setUp()
+    test.testEngBookDays()
+    test.tearDown()
+    test.setUp()
+    test.testHebGuliver()
     #logging.log(logging.ERROR, logging._levelNames)
-    module_name = sys.modules[__name__].__file__
-    logging.debug("running nose for package: %s", module_name)
 
-    result = nose.run(argv=[sys.argv[0],module_name,'-v'])
-
-    logging.info("all tests ok: %s", result)
+    #TODO for nose
+    #module_name = sys.modules[__name__].__file__
+    #logging.debug("running nose for package: %s", module_name)
+    #result = nose.run(argv=[sys.argv[0],module_name,'-v'])
+    #logging.info("all tests ok: %s", result)
